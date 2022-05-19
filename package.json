@@ -1,0 +1,11 @@
+{
+  "name": "covid-auto-uploader",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "jimp": "^0.16.1",
+    "puppeteer": "^14.1.0",
+    "qrcode-reader": "^1.0.4"
+  }
+}
