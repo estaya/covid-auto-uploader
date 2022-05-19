@@ -18,3 +18,5 @@ node index.js
 ```
 
 If you do not want to show the browser window, change `headless: true` to `headless: false` in `index.js`.
+
+It's worth mentioning that you may have to customize `new_path` in `index.js` to avoid script detection.
