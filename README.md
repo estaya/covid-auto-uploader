@@ -2,11 +2,11 @@ Replace `{{username}}` `{{password}}` in `index.js`
 
 Place the images in the same folder as the `index.js` file.
 
-Image naming rule: `month-date-hours.jpg` (hours can only be 8 or 20)
+Image naming rule: `month-date-hours.jpg` (hours can only be 9 or 20)
 
 Examples: 
 
-- `5-20-8.jpg` is the image for May 20th morning
+- `5-20-9.jpg` is the image for May 20th morning
 - `5-20-20.jpg` is the image for May 20th evening
 
 ```bash
