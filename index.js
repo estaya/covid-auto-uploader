@@ -108,6 +108,16 @@ async function submit(covid_img) {
         d = date.getDate();
         h = date.getHours();
 
+        let imgs = fs.readdirSync(covid_img_dir).filter(f => f.endsWith('.jpg'));
+        for (let img of imgs) {
+            try {
+                const qr = await getQR(covid_img_dir + '/' + img);
+                console.log(img, qr);
+            } catch (e) {
+                console.log(`cannot recognize the QRCode in ${img}`);
+            }
+        }
+
         if (h == 9 || h == 20) {
             console.log('wait 2 min');
             await delay(2 * 60 * 1000);
