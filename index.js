@@ -129,12 +129,26 @@ async function submit(covid_img) {
                 console.log('exist');
                 let new_path = covid_img_dir + `/photo_${new Date().toISOString().slice(0, 19).replace('T', '_').replaceAll(':', '-')}.jpg`;
                 fs.copyFileSync(covid_img, new_path);
-                await submit(new_path);
-                console.log('delay 1 hour');
+                try {
+                    await submit(new_path);
+                    console.log('submit success');
+                } catch (e) {
+                    console.log('submit failed');
+                    console.log('delay 2 min')
+                    await delay(2 * 60 * 1000);
+                    try {
+                        console.log('try again');
+                        await submit(new_path);
+                        console.log('submit success');
+                    } catch (e) {
+                        console.log('submit failed');
+                    }
+                }
             } else {
                 console.log('not exist');
             }
 
+            console.log('delay 1 hour');
             await delay(60 * 60 * 1000);
         } else {
             console.log('wait 20 min');
