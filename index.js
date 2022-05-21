@@ -2,9 +2,12 @@ const puppeteer = require('puppeteer-extra');
 const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 puppeteer.use(StealthPlugin());
 
+const process = require('process');
 const assert = require('assert');
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 const fs = require('fs');
+
+const covid_img_dir = process.argv[2] || __dirname;
 
 function getQR(img_path) {
     return new Promise((resolve, reject) => {
@@ -109,12 +112,12 @@ async function submit(covid_img) {
             console.log('wait 2 min');
             await delay(2 * 60 * 1000);
 
-            covid_img = __dirname + `/${m}-${d}-${h}.jpg`;
+            covid_img = covid_img_dir + `/${m}-${d}-${h}.jpg`;
             console.log('img path', covid_img);
 
             if (fs.existsSync(covid_img)) {
                 console.log('exist');
-                let new_path = __dirname + `/photo_${new Date().toISOString().slice(0, 19).replace('T', '_').replaceAll(':', '-')}.jpg`;
+                let new_path = covid_img_dir + `/photo_${new Date().toISOString().slice(0, 19).replace('T', '_').replaceAll(':', '-')}.jpg`;
                 fs.copyFileSync(covid_img, new_path);
                 await submit(new_path);
                 console.log('delay 1 hour');
