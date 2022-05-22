@@ -9,6 +9,12 @@ const fs = require('fs');
 
 const covid_img_dir = process.argv[2] || __dirname;
 
+function getDate(offset) {
+    const d = new Date();
+    const utc = d.getTime() + (d.getTimezoneOffset() * 60000);
+    return new Date(utc + (3600000*offset));
+}
+
 function getQR(img_path) {
     return new Promise((resolve, reject) => {
         var Jimp = require("jimp");
@@ -105,10 +111,11 @@ async function submit(covid_img) {
 
 (async () => {
     while (true) {
-        const date = new Date(Date.now());
+        const date = getDate('+8');
         m = date.getMonth() + 1;
         d = date.getDate();
         h = date.getHours();
+        console.log(`${m}/${d} ${h}:${date.getMinutes()}`);
 
         let imgs = fs.readdirSync(covid_img_dir).filter(f => f.endsWith('.jpg'));
         for (let img of imgs) {
